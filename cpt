@@ -1,0 +1,29 @@
+$news_page = new WP_Query( array( 'posts_per_page' => 8,'post_type' => 'latest_news' ) );
+
+ $c=0; while ( $news_page->have_posts() ) : $news_page->the_post(); $c++;
+ if($c%2==0)
+ {
+  $news_block1 = "news-block1";
+ }
+ else{
+  $news_block1 = "";
+ }
+
+      ?>
+                  <div class="news-block <?php echo $news_block1 ;?> cf">
+                     <h2><a href="<?php echo the_permalink();?>"><?php echo the_title();?></a></h2>
+                      <div class="bottom-border cf">
+                      <?php if(has_post_thumbnail()){?>
+                          <div class="round-img">
+                            <?php the_post_thumbnail('full');?>
+                              <span></span>
+                          </div>
+                          <?php } ?>
+                          <p><?php the_excerpt();?></p>
+                      
+                      </div>
+                  </div>
+          <?php endwhile; 
+              //endif;
+              wp_reset_query();
+           ?>
